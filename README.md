@@ -7,6 +7,7 @@ Este repositorio alberga un *contenedor Docker* para montar un Servidor que real
 
 * **Dockerfile**: Para crear un servidor basado en debian
 * **sample**: Directorio con un ejemplo de lo que hay que añadir al principio del squid3.conf para que haga proxy inverso
+* **init_squid.py**. Programa que se debe ejecutar al arrancar un contenedor basado en esta imagen
 
 ## Instalación de la imagen
 

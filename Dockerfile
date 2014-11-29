@@ -6,7 +6,7 @@
 
 # Desde donde parto...
 #
-FROM debian:latest
+FROM debian:jessie
 
 #
 MAINTAINER Luis Palacios <luis@luispa.com>
