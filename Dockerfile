@@ -33,6 +33,19 @@ RUN dpkg-reconfigure locales
 #
 RUN echo "Europe/Madrid" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata
 
+# Workaround para el Timezone, en vez de montar el fichero en modo read-only:
+# 1) En el DOCKERFILE
+RUN mkdir -p /config/tz && mv /etc/timezone /config/tz/ && ln -s /config/tz/timezone /etc/
+# 2) En el Script entrypoint:
+#     if [ -d '/config/tz' ]; then
+#         dpkg-reconfigure -f noninteractive tzdata
+#         echo "Hora actual: `date`"
+#     fi
+# 3) Al arrancar el contenedor, montar el volumen, a contiuación un ejemplo:
+#     /Apps/data/tz:/config/tz
+# 4) Localizar la configuración:
+#     echo "Europe/Madrid" > /Apps/data/tz/timezone
+ 
 # Permito que root pueda entrar mientras hago pruebas
 #
 #RUN echo 'root:docker2014' | chpasswd
@@ -53,3 +66,9 @@ RUN chown -R proxy:proxy /var/cache/squid3
 #
 ADD init_squid.py /init_squid.py
 RUN chmod +x /init_squid.py
+
+# Punto de entrada al contendor, ejecutarlo siempre !!
+#
+ADD do.sh /do.sh
+RUN chmod +x /do.sh
+ENTRYPOINT ["/do.sh"]

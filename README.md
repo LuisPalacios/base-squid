@@ -26,3 +26,16 @@ Este es el comando a ejecutar para clonar el repositorio y poder trabajar con é
 Luego puedes crear la imagen localmente con el siguiente comando
 
     $ docker build -t luispa/base-squid ./
+
+# Personalización
+
+### Volumen
+
+
+Directorio persistente para configurar el Timezone. Crear el directorio /Apps/data/tz y dentro de él crear el fichero timezone. Luego montarlo con -v o con fig.yml
+
+    Montar:
+       "/Apps/data/tz:/config/tz"  
+    Preparar: 
+       $ echo "Europe/Madrid" > /config/tz/timezone
+
